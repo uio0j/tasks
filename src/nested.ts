@@ -36,7 +36,8 @@ export function findQuestion(
     questions: Question[],
     id: number,
 ): Question | null {
-    return questions.find((question: Question) => question.id === id) ?? null;
+    const found = questions.find((question: Question) => question.id === id);
+    return found === undefined ? null : found;
 }
 
 /**
