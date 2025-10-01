@@ -9,41 +9,70 @@ export function EditMode(): React.JSX.Element {
     // function updateIfStudent(event: React.ChangeEvent<HTMLInputElement>) {
     //     setIsStudent(event.target.checked);
     // }
-    let content;
-    if (isEditMode) {
-        content = (
-            <div>
-                <Form.Group controlId="name-input" className="mb-2">
-                    <Form.Label>Name</Form.Label>
-                    <Form.Control
-                        value={studentName}
-                        onChange={(e) => {
-                            setStudentName(e.target.value);
-                        }}
-                    ></Form.Control>
-                    /
-                </Form.Group>
+    // let content;
+    // if (isEditMode) {
+    //     content = (
+    //         <div>
+    //             <Form.Group controlId="name-input">
+    //                 <Form.Label>Name</Form.Label>
+    //                 <Form.Control
+    //                     value={studentName}
+    //                     onChange={(e) => {
+    //                         setStudentName(e.target.value);
+    //                     }}
+    //                 ></Form.Control>
+    //             </Form.Group>
 
-                <Form.Check
-                    type="checkbox"
-                    id="student-checkbox"
-                    label="Student?"
-                    checked={isStudent}
-                    onChange={(e) => {
-                        setIsStudent(e.target.checked);
-                    }}
-                ></Form.Check>
-            </div>
-        );
-    } else {
-        if (isStudent) {
-            content = <div>{studentName} is a student</div>;
-        } else {
-            content = <div>{studentName} is not a student</div>;
-        }
-    }
+    //             <Form.Check
+    //                 type="checkbox"
+    //                 id="student-checkbox"
+    //                 label="Student?"
+    //                 checked={isStudent}
+    //                 onChange={(e) => {
+    //                     setIsStudent(e.target.checked);
+    //                 }}
+    //             ></Form.Check>
+    //         </div>
+    //     );
+    // } else {
+    //     if (isStudent) {
+    //         content = <div>{studentName} is a student</div>;
+    //     } else {
+    //         content = <div>{studentName} is not a student</div>;
+    //     }
+    // }
     return (
         <div>
+            {isEditMode && (
+                <div>
+                    <Form.Group controlId="name-input">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control
+                            value={studentName}
+                            onChange={(e) => {
+                                setStudentName(e.target.value);
+                            }}
+                        ></Form.Control>
+                    </Form.Group>
+
+                    <Form.Check
+                        type="checkbox"
+                        id="student-checkbox"
+                        label="Student?"
+                        checked={isStudent}
+                        onChange={(e) => {
+                            setIsStudent(e.target.checked);
+                        }}
+                    ></Form.Check>
+                </div>
+            )}
+            {
+                <div>
+                    !isEditMode && ({studentName} is{" "}
+                    {isStudent ? "a student" : "not a student"})
+                </div>
+            }
+
             <h3>Edit Mode</h3>
             <Form.Check
                 type="switch"
@@ -54,7 +83,6 @@ export function EditMode(): React.JSX.Element {
                     setIsEditMode(e.target.checked);
                 }}
             ></Form.Check>
-            {content}
         </div>
     );
 }
