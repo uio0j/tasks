@@ -32,7 +32,6 @@ export function ChangeColor(): React.JSX.Element {
                             id="chosenColor-check"
                             value={color}
                             label={color}
-                            //style={{ backgroundColor: color }}
                             checked={chosenColor === color}
                         ></Form.Check>
                     </div>
