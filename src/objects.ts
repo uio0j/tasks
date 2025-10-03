@@ -42,15 +42,9 @@ export function isCorrect(question: Question, answer: string): boolean {
  * be exactly one of the options.
  */
 export function isValid(question: Question, answer: string): boolean {
-    const validators: Record<
-        QuestionType,
-        (q: Question, a: string) => boolean
-    > = {
-        short_answer_question: () => true,
-        multiple_choice_question: (q, a) => q.options.includes(a),
-    };
-
-    return validators[question.type](question, answer);
+    return question.type === "short_answer_question" ?
+            true
+        :   question.options.includes(answer);
 }
 
 /**
@@ -81,18 +75,11 @@ export function toShortForm(question: Question): string {
  * Check the unit tests for more examples of what this looks like!
  */
 export function toMarkdown(question: Question): string {
-    const extraFormatters: Record<QuestionType, (q: Question) => string[]> = {
-        short_answer_question: () => [],
-        multiple_choice_question: (q) => q.options.map((opt) => `- ${opt}`),
-    };
-
-    const lines: string[] = [
-        `# ${question.name}`,
-        question.body,
-        ...extraFormatters[question.type](question),
-    ];
-
-    return lines.join("\n");
+    const multiple =
+        question.type === "multiple_choice_question" ?
+            question.options.map((word: string) => "- " + word).join("\n")
+        :   "";
+    return `# ${question.name}\n${question.body}${multiple ? "\n" + multiple : ""}`;
 }
 
 /**
